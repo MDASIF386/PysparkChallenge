@@ -1,0 +1,55 @@
+PYSPARK ➡️Day 1️⃣  ➡️ Question:
+ PROBLEM STATEMENT : Merge 2 DataFrames
+---------------------------------------------------
+
+hashtag#Define the schema of the DataFrame
+COLUMNS='ID INTEGER, NAME STRING, DEPARTMENT STRING, STATE STRING, MARKS INTEGER'
+
+COLUMNS1='ID INTEGER, NAME STRING, DEPARTMENT STRING, STATE STRING'
+
+hashtag#Data to be inserted into the Dataframe
+sampleData1=[(1,"ASIF","CSIT","JHARKHAND",95),
+ (2,"ARUNESH","ECE","WEST BENGAL",80),
+ (3,"HARSHEET","CS","BIHAR",87),
+ (4,"SUMBUL","CIVIL","UP",76)]
+
+sampleData2=[(5,"RONALDO","CSIT","DELHI"),
+ (6,"MBAPPE","ECE","ASSAM"),
+ (7,"GIROUD","CS","GUJRAT"),
+ (8,"GAVI","CIVIL","MANIPUT")]
+
+Create and show the DataFrame
+-------------------------------------
+df1=spark.createDataFrame(sampleData1,COLUMNS)
+df1.show
+()
+
+df2=spark.createDataFrame(sampleData2,COLUMNS1)
+df2.show
+()
+
+SOLUTION:
+-------------
+from pyspark.sql.functions import *
+
+Adding a Column name 'Marks' into df2 DataFrame, so that both the dataframes has equal no. of columns, then we can use UNION
+
+df2=df2.withColumn("MARKS",lit("NULL"))
+final=df1.union(df2)
+final.show
+()
+
+OUTPUT:
+----------
++---+--------+----------+-----------+-----+
+| ID| NAME|DEPARTMENT| STATE |MARKS|
++---+--------+----------+-----------+-----+
+| 1| ASIF | CSIT| JHARKHAND | 95|
+| 2| ARUNESH | ECE|WEST BENGAL | 80|
+| 3|HARSHEET | CS| BIHAR | 87|
+| 4| SUMBUL | CIVIL| UP | 76|
+| 5| RONALDO| CSIT| DELHI | NULL|
+| 6| MBAPPE | ECE| ASSAM | NULL|
+| 7| GIROUD | CS| GUJRAT | NULL|
+| 8| GAVI | CIVIL| MANIPUT | NULL|
++---+--------+----------+-----------+-----+
