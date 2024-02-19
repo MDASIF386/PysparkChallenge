@@ -124,3 +124,104 @@ OUTPUT->
 | 3 | Zara Singh | Female | 35 | 70000 | Arjun Patel |
 | 4 |Priya Reddy| Female | 32 | 65000 |Aarav Sharma |
 +------+------------+-------------+-------+--------------+----------------+
+
+Hey #DataEngineers
+
+
+
+🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊DAY 1️⃣ 3️⃣  :
+
+================================================
+
+Q) Solve using Regexp_extract method.
+
+Separate the word whenever the first letter comes after digit and paste it in 2 separate columns.
+
+=================================================
+
+
+
+INPUT:
+
+------------------------------------------------------------------------------------
+
+data=[('ABSHFJFJ12QWERT12',1),
+
+      ('QWERT5674OTUT1',2),
+
+      ('DGDGNJDJ1234UYI',3)]
+
+-------------------------------------------------------------------------------------
+
+OUTPUT:
+
+-------------------------------------------------------------------------------------
+
++---------------+-------------+
+
+|     first_half      |second_half |
+
++---------------+-------------+
+
+|  ABSHFJFJ12    |    QWERT12|
+
+|   QWERT5674  |      OTUT1   |
+
+|DGDGNJDJ1234|        UYI     |
+
++------------+----------------+
+
+--------------------------------------------------------------------------------------
+
+from pyspark.sql import SparkSession
+
+from pyspark.sql.functions import regexp_extract
+
+
+
+# Create DataFrame with schema
+
+df = spark.createDataFrame(data, schema="input_string string, id int")
+
+
+
+#Show the original DataFrame
+
+print("Original DataFrame:")
+
+df.show()
+
+
+
+#Apply regular expressions to extract first and second halves
+
+df2 = df.withColumn("first_half", regexp_extract("input_string", "^([a-zA-Z]*([0-9]*))", 1)) \
+
+    .withColumn("second_half", regexp_extract("input_string", "(.)(\d+)(\w+)", 3)) \
+
+    .drop("input_string", "id")
+
+
+
+#Show the transformed DataFrame
+
+print("Transformed DataFrame:")
+
+df2.show()
+
+
+
+--------------------------------------------
+
+Comment your answer in the comment section.
+
+
+
+
+
+
+
+
+
+#DataEngineering #BigData #CodingChallenge #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud
+
