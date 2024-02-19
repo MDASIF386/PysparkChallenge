@@ -213,15 +213,3 @@ df2.show()
 
 --------------------------------------------
 
-Comment your answer in the comment section.
-
-
-
-
-
-
-
-
-
-#DataEngineering #BigData #CodingChallenge #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud
-
