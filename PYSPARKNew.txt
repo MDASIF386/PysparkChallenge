@@ -217,7 +217,7 @@ Hey #DataEngineers
 
 
 
-🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊DAY 1️⃣ 7️⃣  :
+🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊 :
 
 ================================================
 
@@ -292,11 +292,8 @@ EXPLAIN command can be used to print the various or all of the plans that execut
  1) what aggregation strategy to be used (hash/sort aggregate)
 
  2) what join strategy to be used (broadcast hash join/sort merge join/shuffle hash join) 
-
 There can be multiple Physical plans generated, but only the most cost effective one will be selected and code generated for the same (codeGen), 
 
 which finally gets executed to get the result.
 
 
-
-#DataEngineering #BigData #CodingChallenge #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud #trendytech #scenario #dataanalytics #interviewseries #dataengineering #technicalskills #problemsolving #dataanalysis #jobseekers #interviewprep #codingchallenge  #sqlskills #spark #optimization #speculation #sparkdeveloper #interviewpreparation #interviewquestions #interviewtips
