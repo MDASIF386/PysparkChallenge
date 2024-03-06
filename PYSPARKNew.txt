@@ -457,3 +457,158 @@ resultDf.show()
 
 ---------------------------------------------------------------------------------------
 
+Hey #DataEngineers,
+
+
+
+🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊DAY 2️⃣ 6️⃣  :
+
+================================================
+
+💻 Find the origin and the destination of each customer.
+
+Note: If there is a discontinuity in the flight's origin & destination, it will be a new route (example cust_id 4).
+
+-------------------------------------------------------------------------------------
+
+Input-
+
+cust_id, flight_id, origin, destination
+
+(1, 'Flight2', 'Goa', 'Kochi'),
+
+(1, 'Flight1', 'Delhi', 'Goa'),
+
+(1, 'Flight3', 'Kochi', 'Hyderabad'),
+
+(2, 'Flight1', 'Pune', 'Chennai'),
+
+(2, 'Flight2', 'Chennai', 'Pune'),
+
+(3, 'Flight1', 'Mumbai', 'Bangalore'),
+
+(3, 'Flight2', 'Bangalore', 'Ayodhya'),
+
+(4, 'Flight1', 'Ahmedabad', 'Indore'),
+
+(4, 'Flight2', 'Indore', 'Kolkata'),
+
+(4, 'Flight3', 'Ranchi', 'Delhi'),
+
+(4, 'Flight4', 'Delhi', 'Mumbai')
+
+------------------------------------------------------------------------------------
+
+Output-
+
+|cust_id|  origin|destination|
+
++-------+---------+-----------+
+
+|   1|  Delhi| Hyderabad|
+
+|   2|   Pune|    Pune|
+
+|   3|  Mumbai|  Ayodhya|
+
+|   4|Ahmedabad|  Kolkata|
+
+|   4|Ranchi |   Mumbai|
+
+--------------------------------------------------------------------------------------
+
+In Databricks, you can use PySpark for data processing. Here's how you can achieve the same result using PySpark:
+
+--------------------------------------------------------------------------------------
+
+from pyspark.sql import SparkSession
+
+from pyspark.sql.window import Window
+
+from pyspark.sql.functions import col, lag, when, sum as pyspark_sum
+
+
+
+# Create a SparkSession
+
+spark = SparkSession.builder \
+
+  .appName("Customer Route Analysis") \
+
+  .getOrCreate()
+
+
+
+# Input data
+
+data = [
+
+  (1, 'Flight2', 'Goa', 'Kochi'),
+
+  (1, 'Flight1', 'Delhi', 'Goa'),
+
+  (1, 'Flight3', 'Kochi', 'Hyderabad'),
+
+  (2, 'Flight1', 'Pune', 'Chennai'),
+
+  (2, 'Flight2', 'Chennai', 'Pune'),
+
+  (3, 'Flight1', 'Mumbai', 'Bangalore'),
+
+  (3, 'Flight2', 'Bangalore', 'Ayodhya'),
+
+  (4, 'Flight1', 'Ahmedabad', 'Indore'),
+
+  (4, 'Flight2', 'Indore', 'Kolkata'),
+
+  (4, 'Flight3', 'Ranchi', 'Delhi'),
+
+  (4, 'Flight4', 'Delhi', 'Mumbai')
+
+]
+
+
+
+# Create DataFrame
+
+df = spark.createDataFrame(data, ['cust_id', 'flight_id', 'origin', 'destination'])
+
+
+
+# Calculate previous destination
+
+windowSpec = Window.partitionBy('cust_id').orderBy('flight_id')
+
+df = df.withColumn('prev_dest', lag(col('destination')).over(windowSpec))
+
+
+
+# Compare origin with previous destination to get new partition column
+
+df = df.withColumn('partition', when(col('origin') != col('prev_dest'), 1).otherwise(0))
+
+df = df.withColumn('partition', pyspark_sum('partition').over(Window.partitionBy('cust_id').orderBy('flight_id')))
+
+
+
+# Select first & last value of origin & destination for desired output
+
+output_df = df.groupBy('cust_id', 'partition') \
+
+  .agg({'origin': 'first', 'destination': 'last'}) \
+
+  .orderBy('cust_id', 'partition') \
+
+  .select('cust_id', 'first(origin)', 'last(destination)') \
+
+  .toDF('cust_id', 'origin', 'destination')
+
+
+
+output_df.show()
+
+---------------------------------------------------------------------------------------
+
+
+
+#DataEngineering #BigData #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud #trendytech #scenario #dataanalytics #interviewseries #dataengineer #technicalskills #problemsolving #dataanalysis #jobseekers #interviewprep #codingchallenge #sqlskills #spark #optimization #speculation #sparkdeveloper #interviewpreparation
