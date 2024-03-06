@@ -515,7 +515,7 @@ Output-
 
 |   4|Ranchi |   Mumbai|
 
---------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 In Databricks, you can use PySpark for data processing. Here's how you can achieve the same result using PySpark:
 
