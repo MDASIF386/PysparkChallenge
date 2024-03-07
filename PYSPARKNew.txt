@@ -607,3 +607,120 @@ output_df = df.groupBy('cust_id', 'partition') \
 
 output_df.show()
 
+Hey #DataEngineers,
+
+
+
+🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊DAY 2️⃣ 7️⃣  :
+
+================================================
+
+💻 Problem: You have a dataset of sales transactions, and you want to find the top-selling product for each month. Write a PySpark query to achieve this using window functions.
+
+
+
+📊Source Data:
+
+Assume you have a PySpark DataFrame named `sales_data` with the following columns:
+
+- `product_id` (String): The unique identifier for each product.
+
+- `sales_date` (Date): The date of the sale.
+
+- `sales_amount` (Double): The amount of the sale.
+
+🔎Here's a sample of the source data:
+
++-----------+-----------+------------+
+
+| product_id|sales_date |sales_amount|
+
++-----------+-----------+------------+
+
+| A | 2023-01-15| 100.0 |
+
+| B | 2023-01-20| 150.0 |
+
+| A | 2023-02-10| 120.0 |
+
+| B | 2023-02-15| 180.0 |
+
+| C | 2023-03-05| 200.0 |
+
+| A | 2023-03-10| 250.0 |
+
++-----------+-----------+------------+
+
+
+
+
+
+📊Expected Output:
+
+You should generate a result Data Frame that shows the top-selling product for each month. The result should have the following columns:
+
+- `month` (String): The month for which the top-selling product is calculated.
+
+- `top_product` (String): The product that had the highest total sales for that month.
+
+
+
+Here's the expected output for the provided sample data:
+
++-------+------------+
+
+| month|top_product |
+
++-------+------------+
+
+|2023-01| B |
+
+|2023-02| B |
+
+|2023-03| A |
+
++-------+------------+
+
+
+
+---------------------------------------------------------------------------------------
+
+from pyspark.sql import SparkSession
+
+from pyspark.sql.window import Window
+
+import pyspark.sql.functions as F
+
+
+
+# Create a SparkSession
+
+spark = SparkSession.builder.appName("TopSellingProduct").getOrCreate()
+
+
+
+# Assuming 'sales_data' is your DataFrame
+
+window_spec = Window.partitionBy(F.year("sales_date"), F.month("sales_date")).orderBy(F.desc("sales_amount"))
+
+
+
+result = sales_data.withColumn("rank", F.rank().over(window_spec))
+
+
+
+top_selling_products = result.filter(F.col("rank") == 1).select(
+
+ F.date_format("sales_date", "yyyy-MM").alias("month"),
+
+ F.col("product_id").alias("top_product")
+
+)
+
+
+
+top_selling_products.show()
+
+--------------------------------------------------------------------------------------
+
+#DataEngineering #BigData #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud #trendytech #scenario #dataanalytics #interviewseries #dataengineer #technicalskills #problemsolving #dataanalysis #jobseekers #interviewprep #codingchallenge #sqlskills #spark 
