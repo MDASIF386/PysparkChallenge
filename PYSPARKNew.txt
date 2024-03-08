@@ -723,3 +723,76 @@ top_selling_products.show()
 
 --------------------------------------------------------------------------------------
 
+Hey #DataEngineers,
+
+
+
+🎇 𝐏𝐘𝐒𝐏𝐀𝐑𝐊 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 📊DAY 2️⃣ 8️⃣  :
+
+================================================
+
+💻 Problem: Question 123: How to read Nested Json files in PySpark?
+
+----------------------------------------------------------------------------------
+
+Let’s dive into the process of reading nested JSON files using PySpark.
+
+-----------------------------------------------------------------------------------
+
+#Step1: Importing Necessary Libraries
+
+First, we need to import the necessary PySpark libraries.
+
+
+
+from pyspark.sql import SparkSession
+
+from pyspark.sql.functions import explode
+
+
+
+#Step2: Creating a Spark Session
+
+Next, we create a Spark session, which is the entry point to any Spark functionality.
+
+
+
+spark = SparkSession.builder.appName('nestedJSON').getOrCreate()
+
+
+
+#Step3: Loading the JSON File
+
+Now, we load the JSON file using the read.json function.
+
+
+
+df = spark.read.json('path_to_your_json_file')
+
+
+
+#Step4: Exploring the Data 
+
+To understand the structure of our data, we use the printSchema() function.
+
+
+
+df.printSchema()
+
+
+
+#Step5: Flattening the JSON File
+
+To flatten the nested JSON file, we use the explode function. This function creates a new row for each element in the given array or map column.
+
+
+
+df_flat = df.select('name', 'age', explode(df.cars).alias('cars'))
+
+df_flat = df_flat.select('name', 'age', 'cars.car1', 'cars.model')
+
+
+
+Reading nested JSON files in PySpark can be a bit tricky, but with the right approach, it becomes straightforward. By understanding the structure of your data and using PySpark’s powerful functions, you can easily extract and analyze data from nested JSON files.
+
+--------------------------------------------------------------------------------------
