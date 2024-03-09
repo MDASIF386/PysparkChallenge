@@ -881,5 +881,3 @@ pivoted_df.show()
 This code uses the groupBy operation to group the DataFrame by the "ID" column and then uses the pivot operation to pivot the "col1" column. Finally, it uses the agg function to aggregate the values in "col2" using the "first" function.
 
 --------------------------------------------------------------------------------------
-
-#DataEngineering #BigData #LinkedInLearning #pyspark #databricks #dataanalytics #datascience #technology #creativity #jobinterviews #innovation #education #TechCommunity #pytechnologies #databricks #dataanalytics #dailycoding #data #dataframe #azurecloud #trendytech #scenario #dataanalytics #interviewseries #dataengineer #technicalskills #problemsolving #dataanalysis #jobseekers #interviewprep #codingchallenge #sqlskills #spark 
